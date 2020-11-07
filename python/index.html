@@ -1,0 +1,53 @@
+
+<html>
+	<style>
+	
+	body {
+		margin-top: 30px;
+		text-align: center;
+		background: lightblue url('pawel-czerwinski-RkIsyD_AVvc-unsplash.jpg');
+		background-size: cover;
+		position: static;
+		font-size: 50px;
+	}
+	
+	form {
+		width: 600px;
+		margin: auto;
+		margin-top: 50px;
+		background-color: white;
+		font-size: 20px;
+	}
+	p {
+		background-color: white;
+                font-size: 20px;
+		padding-bottom: 20px;
+		padding-top: 20px;
+		text-align: center;
+	}
+
+	.button{
+		color: #6c5b7b;
+		font-family: 'Aclonica';
+		font-size: 30px;
+		background-color: #f9e1e0;
+		width: 200px;
+		height: 50px;
+		margin-bottom: 20px;
+
+	}
+	.browse{
+		margin-top: 20px;
+	}
+	
+	</style>
+	<body>
+			What Waste Goes Where In Vancouver?
+
+			   <form enctype = "multipart/form-data"
+				                        action = "/cgi-bin/upload.py" method = "POST">
+				      <p>Submit An Image To Learn Where It Goes. <input type = "file" name = "filename" class="browse"></p>
+				         <p><input type = "submit" value = "Upload" class="button"></p>
+					    </form>
+	</body>
+</html>

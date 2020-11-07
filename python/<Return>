@@ -1,0 +1,65 @@
+#!/usr/bin/python3
+
+import cgi, os
+import cgitb; cgitb.enable()
+form = cgi.FieldStorage()
+
+# Get filename here.
+fileitem = form['filename']
+# Test if the file was uploaded
+if fileitem.filename:
+      # strip leading path from file name to avoid
+          # directory traversal attacks
+  fn = os.path.basename(fileitem.filename.replace("\\", "/" ))
+  open('/tmp/' + fn, 'wb').write(fileitem.file.read())
+  message = 'The file "' + fn + '" was uploaded successfully'
+                     
+else:
+  message = 'No file was uploaded'
+
+import tensorflow as tf
+
+new_model = tf.keras.models.load_model('/home/alicia_emberso_bremer/python/cgi-bin/my_model.h5')
+
+from PIL import Image
+import numpy as np
+from skimage import transform
+import matplotlib.pyplot as plt
+
+def load(filename):
+  np_image = Image.open(filename)
+  np_image = np.array(np_image).astype('float32')/255
+  np_image = transform.resize(np_image, (64, 64, 3))
+  np_image = np.expand_dims(np_image, axis=0)
+  return np_image
+
+
+def prediction(result):
+  if result == 0:
+     prediction = 'Not Recyclable'
+  elif result == 2:
+     prediction = "Recyclable"
+  else:
+     prediction = 'Organic'
+  return prediction
+
+
+def total(filename):
+  image = load(filename)
+  result = new_model.predict(image)
+  return prediction(result)
+  
+
+print("Content-Type: text/html")
+print()
+
+print ("<html> <body>")
+
+print("<p>" + message + "</p>")
+
+#new_model.summary()
+image = load("/tmp" + fn)
+predict_str = new_model.predict(image)i
+
+print("<b>Prediction Result: " + predict_str + "</b>")
+print("</bodn></html>")
