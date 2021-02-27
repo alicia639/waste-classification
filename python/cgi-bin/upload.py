@@ -20,10 +20,7 @@ if fileitem.filename:
 else:
   message = 'No file was uploaded'
 
-import tensorflow as tf
-import efficientnet.tfkeras as efn
 from tensorflow.keras.models import load_model
-
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.models import model_from_json
@@ -36,7 +33,7 @@ from tensorflow.keras.models import Model
 
 
 # building the complete model
-model = load_model('/home/alicia_emberso_bremer/python/cgi-bin/new_model.h5')
+model = load_model('~/python/cgi-bin/trained_model.h5')
 
 from PIL import Image
 import numpy as np
@@ -46,23 +43,23 @@ import matplotlib.pyplot as plt
 def load(filename):
   np_image = Image.open(filename)
   np_image = np.array(np_image).astype('float32')/255
-  np_image = transform.resize(np_image, (300, 300, 3))
+  np_image = transform.resize(np_image, (64, 64, 3))
   np_image = np.expand_dims(np_image, axis=0)
   return np_image
 
 
 def prediction(result):
-    if result == 0:
+    if result == 3:
         prediction = "Cardboard: Goes Into Blue Box"
     elif result == 1:
         prediction = "Glass: Goes Into Blue Box"
-    elif result == 2:
+    elif result == 5:
         prediction = "Metal: If can, blue box.  Else, bring to depot."
-    elif result == 3:
+    elif result == 2:
         prediction = "Paper: Goes Into Yellow Bag"
     elif result == 4:
         prediction = "Plastic: Goes Into Blue Box"
-    elif result == 5:
+    elif result == 6:
         prediction = "Trash: Garbage"
     else:
         prediction = "Error"
@@ -73,8 +70,6 @@ def total(filename):
   image = load(filename)
   pred = model.predict(image)
   result = np.argmax(pred, axis=1)
-  if pred[0][result] < 0.5:
-      return "Organic: goes into yardwaste"
   return prediction(result)
   
 
