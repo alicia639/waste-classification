@@ -14,7 +14,7 @@ Go check out the app [here](34.83.57.36:8000/).
 ## App Preview
 
 Uploading files.
-![First App Screenshot](waste_screenshot1.png)
+![First App Screenshot](waste-screenshot1.png)
 
 Output.
-![Second App Screenshot](waste_screenshot2.png)
+![Second App Screenshot](waste-screenshot2.png)
